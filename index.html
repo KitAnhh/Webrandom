@@ -100,7 +100,7 @@
   <img src="gif/cute.gif" alt="" class="gif-img" />  
   <p style="font-size: 2em;">Trước Tiên Thì Cho Tớ Làm Quen Cậu Cái Đã Nhé</p>  
   <div class="name-label" style="font-size: 1.5em;">Cho Bổn Cung Xin Cái Tên Của Nhà Ngươi ?</div>  
-  <input type="text" placeholder="Nhập tên của bạn" />  
+  <input type="text" id="username" placeholder="Nhập tên của bạn" />
   <!-- Nút xác nhận -->  
   <button id="confirmBtn">Xác nhận</button>  
 </div>  
@@ -116,7 +116,7 @@
   <!-- Sở thích -->
   <div style="margin-top:10px;">
     <label for="sothich" style="display:block; color:pink;">Tớ Có Thể Liên Lạc Với Cậu Qua Số Phone Khum:</label>
-    <input type="text" id="sothich" placeholder="Ghi số của cậu ở chỗ này nà" style="width:100%; padding:10px; border-radius:5px; border:2px solid #ccc;" />
+    <input type="text" id="sothich" placeholder="Ghi sở thích của bạn" style="width:100%; padding:10px; border-radius:5px; border:2px solid #ccc;" />
   </div>
   
   <!-- Câu hỏi có muốn nhận quà -->
@@ -142,47 +142,67 @@
   const mainContent = document.querySelector('.content');
   const newContent = document.getElementById('newContent');
   const secondPage = document.getElementById('secondepage');
+  const spinContainer = document.getElementById('spinContainer');
 
-  // Xử lý khi nhấn nút đầu
-  document.querySelector('#confirmBtn').addEventListener('click', function() {
+  // Nút 1: qua bước nhập thêm thông tin
+  document.querySelector('#confirmBtn').addEventListener('click', function () {
     mainContent.style.display = 'none';
     newContent.style.display = 'block';
   });
 
-  // Xử lý khi nhấn nút thứ hai
-  document.getElementById('confirmNext').addEventListener('click', function() {
+  // Nút 2: xác nhận thông tin + lưu vào localStorage
+  document.getElementById('confirmNext').addEventListener('click', function () {
+    const name = document.getElementById('username').value;
+    const dob = document.getElementById('dob').value;
+    const phone = document.getElementById('sothich').value;
+    const consent = document.getElementById('quatang').value;
+
+    // Tạo object chứa dữ liệu người dùng
+    const userData = {
+      name: name,
+      dob: dob,
+      phone: phone,
+      consent: consent
+    };
+
+    // Lưu vào localStorage
+    localStorage.setItem('userInfo', JSON.stringify(userData));
+
+    // Chuyển sang phần bốc thăm
     newContent.style.display = 'none';
     secondPage.style.display = 'block';
-    spinContainer.style.display = 'block'; // 👈 hiện phần bốc thăm
+    spinContainer.style.display = 'block';
   });
 
-  // Danh sách phần thưởng
+  // Nút bốc thăm
   const prizes = [
     "Một lời chúc dễ thương 🎉",
     "Một món quà bất ngờ 🎁",
   ];
 
   const resultDiv = document.getElementById('result');
-  const spinContainer = document.getElementById('spinContainer');
   const spinBtn = document.getElementById('spinBtn');
 
-  // Xử lý nút bốc thăm
-  spinBtn.addEventListener('click', function() {
-  const randomIndex = Math.floor(Math.random() * prizes.length);
-  const prize = prizes[randomIndex];
-  resultDiv.textContent = prize;
+  spinBtn.addEventListener('click', function () {
+    const randomIndex = Math.floor(Math.random() * prizes.length);
+    const prize = prizes[randomIndex];
+    resultDiv.textContent = prize;
 
-  // Vô hiệu hóa nút sau khi bấm
-  spinBtn.disabled = true;
-  spinBtn.textContent = "Đã bốc thăm 🎉";
-  spinBtn.style.backgroundColor = "#ccc";
-  spinBtn.style.cursor = "not-allowed";
+    spinBtn.disabled = true;
+    spinBtn.textContent = "Đã bốc thăm 🎉";
+    spinBtn.style.backgroundColor = "#ccc";
+    spinBtn.style.cursor = "not-allowed";
 
-  // Pháo hoa!
-  confetti({
-    particleCount: 150,
-    spread: 100,
-    origin: { y: 0.6 }
+    confetti({
+      particleCount: 150,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+
+    // ✅ In dữ liệu vừa lưu trong console để kiểm tra
+    const savedData = JSON.parse(localStorage.getItem('userInfo'));
+    console.log("Dữ liệu đã lưu:", savedData);
   });
-});
 </script>
+
+
