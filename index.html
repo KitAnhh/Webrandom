@@ -167,6 +167,21 @@
 
     // Lưu vào localStorage
     localStorage.setItem('userInfo', JSON.stringify(userData));
+      // Gửi dữ liệu lên Google Sheets qua Web App
+  fetch("https://script.google.com/macros/s/AKfycbxHwmgn-w_5Y8dHQpkGkbBVsXFmqt2T-qXYlF0kPiX3ADRowFdxvgJ2rRe6PorbkbfJ/exec", {
+    method: "POST",
+    mode: "no-cors",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(userData)
+  })
+  .then(() => {
+    console.log("Đã gửi dữ liệu lên Google Sheets.");
+  })
+  .catch((error) => {
+    console.error("Lỗi khi gửi dữ liệu:", error);
+  });
 
     // Chuyển sang phần bốc thăm
     newContent.style.display = 'none';
