@@ -1,30 +1,6 @@
 <!DOCTYPE html>  
 <html lang="vi">  
-<head><!-- Firebase App (Core SDK) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<!-- Firebase Analytics (nếu bạn dùng) -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js"></script>
-<!-- Firebase Database -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js"></script>
-
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyChEj1SNl3sfMuo9unE8F3TfC7fOKlIXeo",
-    authDomain: "kitanh.firebaseapp.com",
-    databaseURL: "https://kitanh-default-rtdb.firebaseio.com",
-    projectId: "kitanh",
-    storageBucket: "kitanh.firebasestorage.app",
-    messagingSenderId: "698622023279",
-    appId: "1:698622023279:web:a35c71a4db2e4cb7561f9a",
-    measurementId: "G-X7H2P63C28"
-  };
-
-  // Khởi tạo Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const analytics = firebase.analytics();
-  const database = firebase.database();
-</script>
-  
+<head>  
 <meta charset="UTF-8" />  
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
 <title>Darling</title>  
@@ -191,9 +167,6 @@
 
     // Lưu vào localStorage
     localStorage.setItem('userInfo', JSON.stringify(userData));
-    // Lưu vào Firebase Realtime Database
-firebase.database().ref('users').push(userData);
-
 
     // Chuyển sang phần bốc thăm
     newContent.style.display = 'none';
